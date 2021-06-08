@@ -290,11 +290,11 @@ public class Maps : MonoBehaviour
     /// </summary>
     /// <param name="point">座標</param>
     /// <param name="tile">変更後のtileState</param>
-    public void TileStateChange(Vector2 point, Tile tile)
+    public void TileStateChange(Vector2Int point, Tile tile)
     {
         if (point.x >= 0 && point.x < MapSizeX && point.y >= 0 && point.y < MapSizeY)
         {
-            tiles[(int)point.x, (int)point.y] = tile;
+            tiles[point.x, point.y] = tile;
         }
     }
 
@@ -302,14 +302,14 @@ public class Maps : MonoBehaviour
     /// roomTileのどこかの座標を返す
     /// </summary>
     /// <returns>座標</returns>
-    public Vector2 RandomRoom()
+    public Vector2Int RandomRoom()
     {
         int num = Random.Range(0, roomRange.Length);
 
         int x = Random.Range(roomRange[num].left, roomRange[num].right);
         int y = Random.Range(roomRange[num].bottom, roomRange[num].top);
 
-        Vector2 point = new Vector2(x, y);
+        Vector2Int point = new Vector2Int(x, y);
 
         return point;
     }

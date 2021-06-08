@@ -24,7 +24,7 @@ public abstract class Character : MonoBehaviour
         Current = Tile.room;
         Vector2 point = Map.RandomRoom();
         transform.position = point;
-        Map.TileStateChange(transform.position, Tile.other);
+        //Map.TileStateChange(transform.position, Tile.other);
     }
 
 
@@ -44,7 +44,7 @@ public abstract class Character : MonoBehaviour
         Tile tileState = Map.TileStateCheck(move);
         if (tileState == Tile.road || tileState == Tile.room)
         {
-            Map.TileStateChange(transform.position, Current);
+            //Map.TileStateChange(transform.position, Current);
             Map.TileStateChange(move, Tile.other);
 
             Current = tileState;

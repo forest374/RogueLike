@@ -47,6 +47,15 @@ public class Astar : MonoBehaviour
     /// <returns>経路</returns>
     public List<Vector2Int> OnAStar(Vector2Int startP, Vector2Int goalP)
     {
+        for (int yy = 0; yy < mapSizeY; yy++)
+        {
+            for (int xx = 0; xx < mapSizeX; xx++)
+            {
+                tilesI[xx, yy].tileState = TileState.yetOpen;
+                tilesI[xx, yy].parent = Vector2Int.zero;
+            }
+        }
+
         this.startP = startP;
         this.goalP = goalP;
         int x = startP.x;
@@ -218,6 +227,7 @@ public class Astar : MonoBehaviour
         {
             if (tile == Tile.room && map.Tiles[item.x, item.y] == Tile.road)
             {
+                Debug.Log("halfwayPoint" + item.x + ", " + item.y);
                 halfwayPoint = new Vector2Int(item.x, item.y);
                 this.goalP = halfwayPoint;
                 break;

@@ -7,61 +7,73 @@ public class PlayerController : Chara
     [SerializeField] string playerName = "勇者";
     [SerializeField] Maps map = null;
     [SerializeField] Manager manager = null;
+    Tile current;
     public override string Name { get => playerName; set { playerName = value; } }
-    public override Maps Map => map;
-    public override Manager Manager => manager;
+    public override Maps Map { get => map; set { map = value; } }
+    public override Manager Manager { get => manager; set { manager = value; } }
+    protected override Tile Current { get => current; set { current = value; } }
 
-    float timer = 0;
+    //float timer = 0;
 
 
-    void Update()
-    {
-        if (timer > 0.15f)
-        {
-            InputMG();
-        }
-        else
-        {
-            timer += Time.deltaTime;
-        }
-    }
+    //void Update()
+    //{
+    //    if (timer > 0.15f)
+    //    {
+    //        InputMG();
+    //    }
+    //    else
+    //    {
+    //        timer += Time.deltaTime;
+    //    }
+    //}
 
     /// <summary>
     /// キー入力
     /// </summary>
-    private void InputMG()
+    public void Action(Vector2Int dir)
     {
-        Vector2Int dir = Vector2Int.zero;
-        if (Input.GetKeyDown("a"))
-        {
-            dir += Vector2Int.left;
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            dir += Vector2Int.right;
-        }
-        if (Input.GetKeyDown("w"))
-        {
-            dir += Vector2Int.up;
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            dir += Vector2Int.down;
-        }
-        if (Input.GetKeyDown("space"))
-        {
-        }
+        //Vector2Int dir = Vector2Int.zero;
+        //if (Input.GetKeyDown("a"))
+        //{
+        //    dir += Vector2Int.left;
+        //}
+        //if (Input.GetKeyDown("d"))
+        //{
+        //    dir += Vector2Int.right;
+        //}
+        //if (Input.GetKeyDown("w"))
+        //{
+        //    dir += Vector2Int.up;
+        //}
+        //if (Input.GetKeyDown("s"))
+        //{
+        //    dir += Vector2Int.down;
+        //}
+        //if (Input.GetKeyDown("space"))
+        //{
+
+        //}
 
         if (dir != Vector2.zero)
         {
-            Vector2 position = transform.position;
+            Vector2 position = this.transform.position;
             Vector2Int point = new Vector2Int((int)position.x + dir.x, (int)position.y + dir.y);
-            Debug.Log(point.x + ", " + point.y);
+            //Debug.Log(point.x + ", " + point.y);
 
+            //　移動するタイルを確認する
             if (MoveingCheck(point))
             {
+                Vector2Int p = new Vector2Int((int)position.x, (int)position.y);
+                    
+                //移動したタイルの情報を変える
+                manager.MoveStateChange(p, Current);
+                manager.MoveStateChange(point, Tile.other);
+                    
+                //移動
                 this.transform.Translate(dir.x, dir.y, 0, Space.World);
-                timer = 0;
+                //timer = 0;
+                manager.PlayerEnd();
             }
 
         }

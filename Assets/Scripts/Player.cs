@@ -90,7 +90,7 @@ public class Player : Character
         Tile tileState = Map.TileStateCheck(move);
         if (tileState == Tile.road || tileState == Tile.room)
         {
-            Map.TileStateChange(transform.position, Current);
+            //Map.TileStateChange(transform.position, Current);
             Map.TileStateChange(move, Tile.other);
 
             Current = tileState;

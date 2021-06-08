@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    [SerializeField] Enemy enemy = null;
+    //[SerializeField] Enemy enemy = null;
+    [SerializeField] EnemyController enemy = null;
     [SerializeField] Maps map = null;
-    Enemy[] enemies;
+    [SerializeField] TestSystem system = null;
+    [SerializeField] PlayerController player = null;
+    [SerializeField] Astar astar = null;
+    //Enemy[] enemies;
+    EnemyController[] enemies; 
+    int endCount = 0;
 
-    int enemyNum = 5;
+    int maxEnemy = 10;
+    int enemyNum = 1;
     void Start()
     {
-        enemies = new Enemy[enemyNum];
+        player.RandomPlacement();
+        enemies = new EnemyController[maxEnemy];
         EnemyPlacement();
+
     }
 
 
@@ -21,16 +30,70 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < enemyNum; i++)
         {
             enemies[i] = Instantiate(enemy);
+            enemies[i].name = i.ToString();
             enemies[i].Map = map;
+            enemies[i].Manager = this;
             enemies[i].RandomPlacement();
         }
     }
 
     public void EnemyAction()
     {
-        foreach (var item in enemies)
+        for (int i = 0; i < enemyNum; i++)
         {
-            item.Action();
+            enemies[i].Action();
         }
+    }
+    public void PlayerAction(Vector2Int dir)
+    {
+        player.Action(dir);
+    }
+
+    /// <summary>
+    /// エネミーのターンエンド
+    /// </summary>
+    public void EnemyEnd()
+    {
+        endCount++;
+        if (enemyNum == endCount)
+        {
+            endCount = 0;
+            system.Turn = Turn.playerTurn;
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーのターンエンド
+    /// </summary>
+    public void PlayerEnd()
+    {
+        system.Turn = Turn.enemyTurn;
+    }
+
+    /// <summary>
+    /// 移動した際にtileの情報を更新する
+    /// </summary>
+    /// <param name="point">座標</param>
+    /// <param name="tile">tileの情報</param>
+    public void MoveStateChange(Vector2Int point, Tile tile)
+    {
+        map.TileStateChange(point, tile);
+    }
+
+    /// <summary>
+    /// 座標の情報を返す
+    /// </summary>
+    /// <param name="point">座標</param>
+    /// <returns>tileの情報</returns>
+    public Tile TileStateCheck(Vector2Int point)
+    {
+        Tile tile = map.TileStateCheck(point);
+        return tile;
+    }
+
+    public List<Vector2Int> OnAstar(Vector2Int position, Vector2Int targetP)
+    {
+        List<Vector2Int> route = astar.OnAStar(position, targetP);
+        return route;
     }
 }

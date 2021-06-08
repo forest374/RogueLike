@@ -4,22 +4,34 @@ using UnityEngine;
 
 public enum Turn
 {
-    myTurn, enemyTurn, other
+    playerTurn, enemyTurn, other
 }
 public class TestSystem : MonoBehaviour
 {
     [SerializeField] Manager manager = null;
-    Turn turn = Turn.myTurn;
+    Turn turn = Turn.playerTurn;
     public Turn Turn { get => turn; set {turn = value;} }
 
+    float timer = 0;
 
     void Update()
     {
         switch (Turn)
         {
-            case Turn.myTurn:
+            case Turn.playerTurn:
+                //Debug.Log("player");
+
+                if (timer > 0.15f)
+                {
+                    InputMG();
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
                 break;
             case Turn.enemyTurn:
+                //Debug.Log("enemy");
                 EnemyTurn();
                 break;
             case Turn.other:
@@ -27,6 +39,33 @@ public class TestSystem : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void InputMG()
+    {
+        Vector2Int dir = Vector2Int.zero;
+        if (Input.GetKeyDown("a"))
+        {
+            dir += Vector2Int.left;
+        }
+        if (Input.GetKeyDown("d"))
+        {
+            dir += Vector2Int.right;
+        }
+        if (Input.GetKeyDown("w"))
+        {
+            dir += Vector2Int.up;
+        }
+        if (Input.GetKeyDown("s"))
+        {
+            dir += Vector2Int.down;
+        }
+        if (Input.GetKeyDown("space"))
+        {
+
+        }
+
+        manager.PlayerAction(dir);
     }
 
     void EnemyTurn()

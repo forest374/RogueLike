@@ -77,7 +77,7 @@ public class Player : Character
     private void Move(Vector2 dir)
     {
         Vector2 move = (Vector2)this.transform.position + dir;
-        MoveCheck(move);
+        //MoveCheck(move);
     }
 
     /// <summary>

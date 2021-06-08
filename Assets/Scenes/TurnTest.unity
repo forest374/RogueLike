@@ -441,9 +441,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310213351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63dab96f9fbf3be4686595e9dc096d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 845496351}
+--- !u!114 &1310213353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310213351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1935468137e54f247b2c3d46f58fd1c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: "\u52C7\u8005"
+  map: {fileID: 845496351}
+  manager: {fileID: 0}

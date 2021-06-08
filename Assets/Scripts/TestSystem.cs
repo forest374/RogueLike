@@ -21,7 +21,6 @@ public class TestSystem : MonoBehaviour
                 break;
             case Turn.enemyTurn:
                 EnemyTurn();
-                Turn = Turn.myTurn;
                 break;
             case Turn.other:
                 break;

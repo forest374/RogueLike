@@ -240,6 +240,15 @@ public class Maps : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// CreateRoadで伸ばしてきた道をつなげる
+    /// </summary>
+    /// <param name="direction">向き（large、smallの軸方向）</param>
+    /// <param name="ariaRange">エリアの範囲</param>
+    /// <param name="x">エリアのX番号</param>
+    /// <param name="y">エリアのY番号</param>
+    /// <param name="large">xyの大きいほうの座標</param>
+    /// <param name="small">xyの小さいほうの座標</param>
     private void RoadConnect(string direction, AriaRange[,] ariaRange, int x, int y, int large, int small)
     {
         if (direction == "縦")
@@ -249,7 +258,7 @@ public class Maps : MonoBehaviour
                 tiles[h, ariaRange[x, y].top] = Tile.road;
             }
         }
-        else
+        else　// 横
         {
             for (int h = small; h <= large; h++)
             {
@@ -261,16 +270,16 @@ public class Maps : MonoBehaviour
 
 
     /// <summary>
-    /// 座標を受け取りそこのTileStateを返す
+    /// 座標を受け取りそこのTileを返す
     /// </summary>
     /// <param name="point">座標</param>
-    /// <returns>TileState</returns>
-    public Tile TileStateCheck(Vector2 point)
+    /// <returns>Tile</returns>
+    public Tile TileStateCheck(Vector2Int point)
     {
         if (point.x >= 0 && point.x < MapSizeX &&
             point.y >= 0 && point.y < MapSizeY)
         {
-            return tiles[(int)point.x, (int)point.y];
+            return tiles[point.x, point.y];
         }
         return Tile.other;
     }

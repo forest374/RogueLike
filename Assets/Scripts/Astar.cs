@@ -16,6 +16,8 @@ public struct TileInformation
 }
 public class Astar : MonoBehaviour
 {
+    // 一度Astarアルゴリズムを行いゴールまでの経路を出す（今のだと最短経路じゃない）
+    // その経路が道を通るなら道の入口を目的地に設定しもう一度AStraアルゴリズムを行う
     [SerializeField] Maps map = null;
     TileInformation[,] tilesI;
 
@@ -125,21 +127,11 @@ public class Astar : MonoBehaviour
                         continue;
                     }
 
-                    //　簡易版
                     int dX = goalP.x - xx;
                     int dY = goalP.y - yy;
 
                     int distG = dX * dX + dY * dY;
                     float dist = cost + distG;
-
-                    //　精度はこっちのほうが高い　けどまだ完全じゃないし計算量が多い
-                    //int distG = dX * dX + (dY * dY);
-                    //float dist = Mathf.Sqrt(distG);
-
-                    //dX = startP.x - xx;
-                    //dY = startP.y - yy;
-                    //distG = dX * dX + (dY * dY);
-                    //dist += Mathf.Sqrt(distG);
 
                     tilesI[xx, yy].cost = cost;
                     tilesI[xx, yy].dist = dist;
@@ -204,6 +196,7 @@ public class Astar : MonoBehaviour
     /// <param name="route">ルート</param>
     void RouteRecord(Vector2Int point)
     {
+        // route.Add(point);
         Vector2Int aa = tilesI[point.x, point.y].parent;
         if (aa == Vector2Int.zero)
         {

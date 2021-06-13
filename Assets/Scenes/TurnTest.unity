@@ -214,13 +214,14 @@ GameObject:
   m_Component:
   - component: {fileID: 431879336}
   - component: {fileID: 431879335}
+  - component: {fileID: 431879337}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &431879335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,8 +234,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8991fd41a4ba2db438169ce1184f90e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 57840304391515, guid: bdcff3e96b658ec4d97552bdbaa2ba75, type: 3}
   map: {fileID: 845496351}
+  system: {fileID: 1168165090}
+  player: {fileID: 1310213353}
+  astar: {fileID: 431879337}
 --- !u!4 &431879336
 Transform:
   m_ObjectHideFlags: 0
@@ -249,6 +253,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &431879337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431879334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2d6c6552531bd4f8f0ae1bd185b0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 845496351}
 --- !u!1 &845496349
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1168165090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: fantasy_behemoth
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729478261116053303, guid: 3e36a33ca1b07fb41a0cb5a2bca6bca7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8256845720048218814, guid: 3e36a33ca1b07fb41a0cb5a2bca6bca7,
         type: 3}
@@ -461,4 +483,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: "\u52C7\u8005"
   map: {fileID: 845496351}
-  manager: {fileID: 0}
+  manager: {fileID: 431879335}

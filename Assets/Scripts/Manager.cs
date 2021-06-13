@@ -15,7 +15,7 @@ public class Manager : MonoBehaviour
     int endCount = 0;
 
     int maxEnemy = 10;
-    int enemyNum = 1;
+    [SerializeField] int enemyNum = 1;
     void Start()
     {
         player.RandomPlacement();

@@ -7,6 +7,7 @@ public class EnemyController : Chara
     string charaName;
     Maps map;
     Manager manager;
+    Astar astar;
     Tile current;
 
     List<Vector2Int> route = new List<Vector2Int>();
@@ -21,6 +22,10 @@ public class EnemyController : Chara
     private void Start()
     {
         targetObj = GameObject.FindGameObjectWithTag("Player");
+
+        astar = GetComponent<Astar>();
+        astar.Map = Map;
+        astar.OnStart();
     }
 
     public void Action()
@@ -82,7 +87,8 @@ public class EnemyController : Chara
     {
         Vector2 p = transform.position;
         Vector2Int position = new Vector2Int((int)p.x, (int)p.y);
-        route = manager.OnAstar(position, targetP);
+        //route = manager.OnAstar(position, targetP);
+        route = astar.OnAStar(position, targetP);
     }
 
 }

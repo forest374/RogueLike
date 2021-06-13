@@ -29,14 +29,22 @@ public class Astar : MonoBehaviour
     List<Vector2Int> route = new List<Vector2Int>();
     Vector2Int halfwayPoint = new Vector2Int(-1, -1);
 
-
     Tile[,] tiles;
-    void Start()
+
+    public Maps Map { get => map; set {map = value; } }
+    //void Start()
+    //{
+    //    mapSizeX = Map.MapSizeX;
+    //    mapSizeY = Map.MapSizeY;
+    //    tilesI = new TileInformation[mapSizeX, mapSizeY]; 
+    //    tiles = Map.Tiles;
+    //}
+    public void OnStart()
     {
-        mapSizeX = map.MapSizeX;
-        mapSizeY = map.MapSizeY;
+        mapSizeX = Map.MapSizeX;
+        mapSizeY = Map.MapSizeY;
         tilesI = new TileInformation[mapSizeX, mapSizeY]; 
-        tiles = map.Tiles;
+        tiles = Map.Tiles;
     }
 
     /// <summary>
@@ -225,7 +233,7 @@ public class Astar : MonoBehaviour
         Tile tile = Tile.other;
         foreach (var item in route)
         {
-            if (tile == Tile.room && map.Tiles[item.x, item.y] == Tile.road)
+            if (tile == Tile.room && Map.Tiles[item.x, item.y] == Tile.road)
             {
                 Debug.Log("halfwayPoint" + item.x + ", " + item.y);
                 halfwayPoint = new Vector2Int(item.x, item.y);

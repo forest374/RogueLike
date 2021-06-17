@@ -239,6 +239,7 @@ MonoBehaviour:
   system: {fileID: 1168165090}
   player: {fileID: 1310213353}
   astar: {fileID: 431879337}
+  enemyNum: 1
 --- !u!4 &431879336
 Transform:
   m_ObjectHideFlags: 0

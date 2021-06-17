@@ -5,6 +5,11 @@ using UnityEngine;
 public class EnemyController : Chara
 {
     string charaName;
+    Status status;
+
+    int hp;
+    int mp;
+
     Maps map;
     Manager manager;
     Astar astar;
@@ -15,6 +20,10 @@ public class EnemyController : Chara
     Vector2Int targetP;
     int count = 0;
     public override string Name { get => charaName; set { charaName = value; } }
+    public override Status Status { get => status; set { status = value; } }
+    public override int HP { get => hp; set { hp = value; } }
+    public override int MP { get => mp; set { mp = value; } }
+
     public override Maps Map { get => map; set { map = value; } }
     public override Manager Manager { get => manager; set { manager = value; } }
     protected override Tile Current { get => current; set { current = value; } }
@@ -26,6 +35,15 @@ public class EnemyController : Chara
         astar = GetComponent<Astar>();
         astar.Map = Map;
         astar.OnStart();
+
+
+        status.max_hp = 50;
+        status.max_mp = 50;
+        status.atk = 15;
+        status.def = 5;
+
+        hp = status.max_hp;
+        mp = status.max_mp;
     }
 
     public void Action()
@@ -36,14 +54,32 @@ public class EnemyController : Chara
             targetP = new Vector2Int((int)taget.x, (int)taget.y);
             Vector2 myPosition = transform.position;
 
-            float distX = targetP.x - myPosition.x;
-            float distY = targetP.y - myPosition.y;
+            int distX = targetP.x - (int)myPosition.x;
+            int distY = targetP.y - (int)myPosition.y;
 
             if (distX <= 1 && distX >= -1 && distY <= 1 && distY >= -1)
             {
-                Debug.Log("attack");
-                manager.EnemyEnd();
-                return;
+                if (astar.Diagonal(myPosition, distX, distY))
+                {
+                    Debug.Log("attack");
+                    //　レイが当たらないことがある
+                    //RaycastHit2D hit = Physics2D.Raycast(myPosition, new Vector2(distX, distY), 1.5f);
+
+                    //if (hit.collider)
+                    //{
+                    //    if (hit.collider.tag == "Player")
+                    //    {
+                    //        Debug.Log("attack");
+                    //    }
+                    //}
+                    ////if (hit.collider.tag == "Player")
+                    ////{
+                    ////    Chara chara = hit.collider.gameObject.GetComponent<Chara>();
+                    ////    Attack(chara);
+                    ////}
+                    manager.EnemyEnd();
+                    return;
+                }
             }
             OnMove();
         }
@@ -58,7 +94,6 @@ public class EnemyController : Chara
         // AStarは毎回やると重い　ターゲットが変わる、いなくなる、一定回数動く
         if (count > 4 || count >= route.Count - 1 )
         {
-            Debug.Log("route");
             count = 0;
             route.Clear();
             RouteSet();

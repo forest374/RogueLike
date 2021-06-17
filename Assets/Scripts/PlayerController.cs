@@ -5,16 +5,35 @@ using UnityEngine;
 public class PlayerController : Chara
 {
     [SerializeField] string playerName = "勇者";
+    Status status;
+
+    int hp;
+    int mp;
+
+
     [SerializeField] Maps map = null;
     [SerializeField] Manager manager = null;
     Tile current;
     public override string Name { get => playerName; set { playerName = value; } }
+    public override Status Status { get => status; set { status = value; } }
+    public override int HP { get => hp; set { hp = value; } }
+    public override int MP { get => mp; set { mp = value; } }
     public override Maps Map { get => map; set { map = value; } }
     public override Manager Manager { get => manager; set { manager = value; } }
     protected override Tile Current { get => current; set { current = value; } }
 
     //float timer = 0;
 
+    private void Start()
+    {
+        status.max_hp = 50;
+        status.max_mp = 50;
+        status.atk = 15;
+        status.def = 5;
+
+        hp = status.max_hp;
+        mp = status.max_mp;
+    }
 
     //void Update()
     //{

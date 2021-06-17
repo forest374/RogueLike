@@ -124,7 +124,7 @@ public class Astar : MonoBehaviour
 
                     // 斜め移動のとき横が壁ならできない
                     float cost;
-                    if (xx * yy != 0) 
+                    if (x * y != 0) 
                     {
                         cost = tilesI[tileX, tileY].cost + 1.4f;
                         if (tiles[xx, tileY] == Tile.wall || tiles[tileX, yy] == Tile.wall)
@@ -235,7 +235,6 @@ public class Astar : MonoBehaviour
         {
             if (tile == Tile.room && Map.Tiles[item.x, item.y] == Tile.road)
             {
-                Debug.Log("halfwayPoint" + item.x + ", " + item.y);
                 halfwayPoint = new Vector2Int(item.x, item.y);
                 this.goalP = halfwayPoint;
                 break;
@@ -263,5 +262,19 @@ public class Astar : MonoBehaviour
             RouteRecord(this.goalP);
             route.Reverse();
         }
+    }
+
+    public bool Diagonal(Vector2 position ,int x, int y)
+    {
+        if (x * y != 0)
+        {
+            int tileX = (int)position.x;
+            int tileY = (int)position.y;
+            if (tiles[tileX + x, tileY] == Tile.wall || tiles[tileX, tileY + y] == Tile.wall)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

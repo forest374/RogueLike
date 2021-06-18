@@ -62,21 +62,10 @@ public class EnemyController : Chara
                 if (astar.Diagonal(myPosition, distX, distY))
                 {
                     Debug.Log("attack");
-                    //　レイが当たらないことがある
-                    //RaycastHit2D hit = Physics2D.Raycast(myPosition, new Vector2(distX, distY), 1.5f);
+                    // 攻撃対象は　レイで管理したい　
+                    Chara chara = targetObj.GetComponent<Chara>();
+                    Attack(chara);
 
-                    //if (hit.collider)
-                    //{
-                    //    if (hit.collider.tag == "Player")
-                    //    {
-                    //        Debug.Log("attack");
-                    //    }
-                    //}
-                    ////if (hit.collider.tag == "Player")
-                    ////{
-                    ////    Chara chara = hit.collider.gameObject.GetComponent<Chara>();
-                    ////    Attack(chara);
-                    ////}
                     manager.EnemyEnd();
                     return;
                 }
